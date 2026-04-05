@@ -1,7 +1,10 @@
 # syntax=docker/dockerfile:1
 FROM golang as base
 WORKDIR /go/src/supabase
-RUN git clone https://github.com/AppFlowy-IO/auth.git --depth 1 --branch 0.8.0
+# Edelweiss: use our fork of AppFlowy's auth (GoTrue) for OIDC customizations
+ARG GOTRUE_REPO=https://github.com/JonasMht/edelweiss-gotrue.git
+ARG GOTRUE_BRANCH=main
+RUN git clone "$GOTRUE_REPO" auth --depth 1 --branch "$GOTRUE_BRANCH"
 WORKDIR /go/src/supabase/auth
 RUN CGO_ENABLED=0 go build -o /auth .
 
