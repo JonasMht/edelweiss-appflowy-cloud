@@ -3,7 +3,7 @@ FROM golang as base
 WORKDIR /go/src/supabase
 # Edelweiss: use our fork of AppFlowy's auth (GoTrue) for OIDC customizations
 ARG GOTRUE_REPO=https://github.com/JonasMht/edelweiss-gotrue.git
-ARG GOTRUE_BRANCH=main
+ARG GOTRUE_BRANCH=master
 RUN git clone "$GOTRUE_REPO" auth --depth 1 --branch "$GOTRUE_BRANCH"
 WORKDIR /go/src/supabase/auth
 RUN CGO_ENABLED=0 go build -o /auth .
